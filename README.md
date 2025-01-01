@@ -1,94 +1,9 @@
-# Book-Management
+The code is a Book Management System implemented in C++ using a class-based approach with vectors for dynamic storage. It allows users to add books, display all books, and delete a book by its unique ID through a simple menu-driven interface. The main class, BookManagement, handles the operations and maintains a 2D vector book to store all book records. Each book's details, such as the name, author, ID, and price, are stored as strings in a temporary vector single_book, which is then added to the main book vector.
 
-#include <iostream>
-#include <string>
-#include <vector>
-using namespace std;
+The InsertBook method is responsible for adding new books to the system. It converts the integer ID and price to strings and stores them along with the book's name and author in the single_book vector. This vector is then appended to the book vector, dynamically growing the list of stored books. Upon successful addition, a confirmation message is displayed.
 
-class BookManagement{
-public:
-    vector<vector<string>> book;
-    vector<string> single_book;
+The display method is used to show all stored books. If the system contains no books, it informs the user with a message. Otherwise, it iterates through the book vector, printing the details of each book in a structured format, including the name, author, ID, and price.
 
-    void InsertBook(string book_name, string author_name, int book_id, int price){          //function for inserting book data
-        string book_id2 = to_string(book_id);                                   
-        string price2 = to_string(price);
-        single_book.push_back(book_name);
-        single_book.push_back(author_name);
-        single_book.push_back(book_id2);
-        single_book.push_back(price2);
-        book.push_back(single_book);
-        cout << "Book added Successfully" << endl << endl;
-    }
+The deleteBook method allows the user to remove a book from the system by its ID. It searches the book vector for a record matching the provided ID. If a match is found, the corresponding record is deleted using the erase function, and a success message is displayed. If no book with the given ID exists, the method notifies the user.
 
-    void display(){                //function for displaying book data
-        if(book.empty()){
-            cout << "No books to display" << endl << endl;
-            return;
-        }
-        for(int i = 0; i<book.size(); i++){
-            cout << "Book Name: " << book[i][0] << endl;
-            cout << "Author Name: " << book[i][1] << endl;
-            cout << "Book ID: " << book[i][2] << endl;
-            cout << "Book price: "<< book[i][3] << endl;
-            cout << "-----------------------------------" << endl << endl;
-        }
-    }
-
-    void deleteBook(int id){                                //function for deleting book data
-        for(int i = 0;i<book.size();i++){       
-            if(book[i][2] == to_string(id)){
-                book.erase(book.begin()+i);
-                cout << "book deleted successfully" << endl << endl;
-                return;
-            }
-        }
-        cout << "Book not found" << endl;
-    }
-};
-
-int main(){
-    BookManagement manager;
-    while(true){
-        cout << "Welcome to the Books Management System" <<endl;               //displaying menu
-        cout << "1. Add a book" << endl;
-        cout << "2. Display all books" << endl;           
-        cout << "3. Delete a book" << endl;
-        cout << "4. Exit" << endl;
-        int choice;
-        cout << "Enter your choice: ";
-        cin >> choice;
-        switch(choice){
-            case 1:{
-                cin.ignore();
-                string book_name, author_name;                  //fetching data from user
-                int Book_id, price;
-                cout << "Enter the book name: ";
-                getline(cin, book_name);
-                cout << "Enter the author name: ";
-                getline(cin, author_name);
-                cout << "Enter the book id: ";
-                cin >> Book_id;
-                cout << "Enter the price: ";
-                cin >> price;
-                manager.InsertBook(book_name, author_name, Book_id, price);
-                break;
-            }
-            case 2: {
-                cout << "Displaying all books" << endl;
-                manager.display();
-                break;
-            }
-            case 3: {
-                int id;
-                cout << "Enter ID of the book you want to delete: ";
-                cin >> id;
-                manager.deleteBook(id);
-                break;
-            }
-            default:
-                cout << "Invalid choice" << endl;
-        }
-    }
-    return 0;
-}
+The program's main function serves as the entry point and provides a menu-driven interface in an infinite loop. Depending on the user's choice, it invokes the appropriate methods of the BookManagement class. The user can add a book by providing the required details, view all stored books, or delete a book by its ID. The menu repeats until the user decides to exit the program.
