@@ -8,7 +8,7 @@ public:
     vector<vector<string>> book;
     vector<string> single_book;
 
-    void InsertBook(string book_name, string author_name, int book_id, int price){
+    void InsertBook(string book_name, string author_name, int book_id, int price){     //Insert function for storing book data
         string book_id2 = to_string(book_id);
         string price2 = to_string(price);
         single_book.push_back(book_name);
@@ -19,7 +19,7 @@ public:
         cout << "Book added Successfully" << endl << endl;
     }
 
-    void display(){
+    void display(){            //for displaying stored book data
         if(book.empty()){
             cout << "No books to display" << endl << endl;
             return;
@@ -33,7 +33,7 @@ public:
         }
     }
 
-    void deleteBook(int id){
+    void deleteBook(int id){              //for deleting book data
         for(int i = 0;i<book.size();i++){
             if(book[i][2] == to_string(id)){
                 book.erase(book.begin()+i);
